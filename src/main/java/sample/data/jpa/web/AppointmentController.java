@@ -17,9 +17,10 @@ import sample.data.jpa.service.AppointmentDao;
 public class AppointmentController {
 
 	/**
-	 * GET /create --> Create a new appointment and save it in the database.
+	 * GET /createAppointment --> Create a new appointment and save it in the
+	 * database.
 	 */
-	@RequestMapping("/create")
+	@RequestMapping("/createAppointment")
 	@ResponseBody
 	public String createAppointment(Date date, int duration, User user, Worker worker, String description) {
 		String appointmentId = "";
@@ -34,9 +35,9 @@ public class AppointmentController {
 	}
 
 	/**
-	 * GET /delete --> Delete the appointment having the passed id.
+	 * GET /deleteAppointment --> Delete the appointment having the passed id.
 	 */
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteAppointment")
 	@ResponseBody
 	public String deleteAppointment(long id) {
 		try {
@@ -49,10 +50,10 @@ public class AppointmentController {
 	}
 
 	/**
-	 * GET /get-by-date --> Return the id for the appointment having the passed
-	 * date.
+	 * GET /getAppointmentByDate --> Return the id for the appointment having the
+	 * passed date.
 	 */
-	@RequestMapping("/get-by-date/{date}")
+	@RequestMapping("/getAppointmentByDate/{date}")
 	@ResponseBody
 	public String getAppointmentByDate(@PathVariable("date") Date date) {
 		String appointmentId = "";
@@ -66,10 +67,10 @@ public class AppointmentController {
 	}
 
 	/**
-	 * GET /update --> Update the attributes for the appointment in the database
-	 * having the passed id.
+	 * GET /updateAppointment --> Update the attributes for the appointment in the
+	 * database having the passed id.
 	 */
-	@RequestMapping("/update")
+	@RequestMapping("/updateAppointment")
 	@ResponseBody
 	public String updateAppointment(long id, Date date, int duration, User user, Worker worker, String description) {
 		try {

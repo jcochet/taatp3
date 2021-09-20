@@ -16,9 +16,9 @@ import sample.data.jpa.service.WorkerDao;
 public class WorkerController {
 
 	/**
-	 * GET /create --> Create a new worker and save it in the database.
+	 * GET /createWorker --> Create a new worker and save it in the database.
 	 */
-	@RequestMapping("/create")
+	@RequestMapping("/createWorker")
 	@ResponseBody
 	public String createWorker(String email, String name, String password, String job) {
 		String workerId = "";
@@ -33,9 +33,9 @@ public class WorkerController {
 	}
 
 	/**
-	 * GET /delete --> Delete the worker having the passed id.
+	 * GET /deleteWorker --> Delete the worker having the passed id.
 	 */
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteWorker")
 	@ResponseBody
 	public String deleteWorker(long id) {
 		try {
@@ -48,9 +48,10 @@ public class WorkerController {
 	}
 
 	/**
-	 * GET /get-by-email --> Return the id for the worker having the passed email.
+	 * GET /getWorkerByEmail --> Return the id for the worker having the passed
+	 * email.
 	 */
-	@RequestMapping("/get-by-email/{email}")
+	@RequestMapping("/getWorkerByEmail/{email}")
 	@ResponseBody
 	public String getWorkerByEmail(@PathVariable("email") String email) {
 		String workerId = "";
@@ -64,9 +65,9 @@ public class WorkerController {
 	}
 
 	/**
-	 * GET /get-by-name --> Return the id for the worker having the passed name.
+	 * GET /getWorkerByName --> Return the id for the worker having the passed name.
 	 */
-	@RequestMapping("/get-by-name/{name}")
+	@RequestMapping("/getWorkerByName/{name}")
 	@ResponseBody
 	public String getWorkerByName(@PathVariable("name") String name) {
 		String workerId = "";
@@ -80,9 +81,9 @@ public class WorkerController {
 	}
 
 	/**
-	 * GET /get-by-job --> Return the id for the worker having the passed job.
+	 * GET /getWorkerByJob --> Return the id for the worker having the passed job.
 	 */
-	@RequestMapping("/get-by-job/{job}")
+	@RequestMapping("/getWorkerByJob/{job}")
 	@ResponseBody
 	public String getWorkerByJob(@PathVariable("job") String job) {
 		String workerId = "";
@@ -96,10 +97,10 @@ public class WorkerController {
 	}
 
 	/**
-	 * GET /update --> Update the email and the name for the user in the database
-	 * having the passed id.
+	 * GET /updateWorker --> Update the email and the name for the user in the
+	 * database having the passed id.
 	 */
-	@RequestMapping("/update")
+	@RequestMapping("/updateWorker")
 	@ResponseBody
 	public String updateWorker(long id, String email, String name, String password, String job,
 			List<Appointment> appointments) {

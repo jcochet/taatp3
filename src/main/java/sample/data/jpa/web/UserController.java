@@ -16,9 +16,9 @@ import sample.data.jpa.service.UserDao;
 public class UserController {
 
 	/**
-	 * GET /create --> Create a new user and save it in the database.
+	 * GET /createUser --> Create a new user and save it in the database.
 	 */
-	@RequestMapping("/create")
+	@RequestMapping("/createUser")
 	@ResponseBody
 	public String createUser(String email, String name, String password) {
 		String userId = "";
@@ -33,9 +33,9 @@ public class UserController {
 	}
 
 	/**
-	 * GET /delete --> Delete the user having the passed id.
+	 * GET /deleteUser --> Delete the user having the passed id.
 	 */
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteUser")
 	@ResponseBody
 	public String deleteUser(long id) {
 		try {
@@ -48,9 +48,9 @@ public class UserController {
 	}
 
 	/**
-	 * GET /get-by-email --> Return the id for the user having the passed email.
+	 * GET /getUserByEmail --> Return the id for the user having the passed email.
 	 */
-	@RequestMapping("/get-by-email/{email}")
+	@RequestMapping("/getUserByEmail/{email}")
 	@ResponseBody
 	public String getUserByEmail(@PathVariable("email") String email) {
 		String userId = "";
@@ -64,9 +64,9 @@ public class UserController {
 	}
 
 	/**
-	 * GET /get-by-name --> Return the id for the user having the passed name.
+	 * GET /getUserByName --> Return the id for the user having the passed name.
 	 */
-	@RequestMapping("/get-by-name/{name}")
+	@RequestMapping("/getUserByName/{name}")
 	@ResponseBody
 	public String getUserByName(@PathVariable("name") String name) {
 		String userId = "";
@@ -80,10 +80,10 @@ public class UserController {
 	}
 
 	/**
-	 * GET /update --> Update the email and the name for the user in the database
-	 * having the passed id.
+	 * GET /updateUser --> Update the email and the name for the user in the
+	 * database having the passed id.
 	 */
-	@RequestMapping("/update")
+	@RequestMapping("/updateUser")
 	@ResponseBody
 	public String updateUser(long id, String email, String name, String password, List<Appointment> appointments) {
 		try {
