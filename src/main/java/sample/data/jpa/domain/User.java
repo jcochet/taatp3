@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 @Table(name = "users")
@@ -30,7 +30,7 @@ public class User {
 	@NotNull
 	private String password;
 
-	private List<Long> appointments = new ArrayList<Long>();
+	private List<Appointment> appointments = new ArrayList<Appointment>();
 
 	// Public methods
 
@@ -42,10 +42,10 @@ public class User {
 	}
 
 	public User(String email, String name, String password) {
-		this(email, name, password, new ArrayList<Long>());
+		this(email, name, password, new ArrayList<Appointment>());
 	}
 
-	public User(String email, String name, String password, List<Long> appointments) {
+	public User(String email, String name, String password, List<Appointment> appointments) {
 		this.email = email;
 		this.name = name;
 		this.password = password;
@@ -84,11 +84,23 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Long> getAppointments() {
+	@OneToMany(mappedBy = "user")
+	public List<Appointment> getAppointments() {
 		return appointments;
 	}
 
-	public void setAppointments(List<Long> appointments) {
+	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+
+	@Override
+	public String toString() {
+		String str = "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+				+ ", appointments={";
+		for (Appointment appointment : appointments) {
+			str += appointment.getId() + ",";
+		}
+		str += "}]";
+		return str;
 	}
 }
