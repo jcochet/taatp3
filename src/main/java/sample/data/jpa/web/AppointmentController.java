@@ -21,7 +21,7 @@ public class AppointmentController {
 	 */
 	@RequestMapping("/create")
 	@ResponseBody
-	public String create(Date date, int duration, User user, Worker worker, String description) {
+	public String createAppointment(Date date, int duration, User user, Worker worker, String description) {
 		String appointmentId = "";
 		try {
 			Appointment appointment = new Appointment(date, duration, user, worker, description);
@@ -38,7 +38,7 @@ public class AppointmentController {
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
-	public String delete(long id) {
+	public String deleteAppointment(long id) {
 		try {
 			Appointment appointment = new Appointment(id);
 			appointmentDao.delete(appointment);
@@ -54,7 +54,7 @@ public class AppointmentController {
 	 */
 	@RequestMapping("/get-by-date/{date}")
 	@ResponseBody
-	public String getByDate(@PathVariable("date") Date date) {
+	public String getAppointmentByDate(@PathVariable("date") Date date) {
 		String appointmentId = "";
 		try {
 			Appointment appointment = appointmentDao.findByDate(date);

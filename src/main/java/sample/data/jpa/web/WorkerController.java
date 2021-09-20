@@ -20,7 +20,7 @@ public class WorkerController {
 	 */
 	@RequestMapping("/create")
 	@ResponseBody
-	public String create(String email, String name, String password, String job) {
+	public String createWorker(String email, String name, String password, String job) {
 		String workerId = "";
 		try {
 			Worker worker = new Worker(email, name, password, job);
@@ -37,7 +37,7 @@ public class WorkerController {
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
-	public String delete(long id) {
+	public String deleteWorker(long id) {
 		try {
 			Worker worker = new Worker(id);
 			workerDao.delete(worker);
@@ -52,7 +52,7 @@ public class WorkerController {
 	 */
 	@RequestMapping("/get-by-email/{email}")
 	@ResponseBody
-	public String getByEmail(@PathVariable("email") String email) {
+	public String getWorkerByEmail(@PathVariable("email") String email) {
 		String workerId = "";
 		try {
 			Worker worker = workerDao.findByEmail(email);
@@ -68,7 +68,7 @@ public class WorkerController {
 	 */
 	@RequestMapping("/get-by-name/{name}")
 	@ResponseBody
-	public String findByName(@PathVariable("name") String name) {
+	public String getWorkerByName(@PathVariable("name") String name) {
 		String workerId = "";
 		try {
 			Worker worker = workerDao.findByName(name);
@@ -84,7 +84,7 @@ public class WorkerController {
 	 */
 	@RequestMapping("/get-by-job/{job}")
 	@ResponseBody
-	public String findByJob(@PathVariable("job") String job) {
+	public String getWorkerByJob(@PathVariable("job") String job) {
 		String workerId = "";
 		try {
 			Worker worker = workerDao.findByJob(job);

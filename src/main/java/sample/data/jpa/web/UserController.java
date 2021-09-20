@@ -20,7 +20,7 @@ public class UserController {
 	 */
 	@RequestMapping("/create")
 	@ResponseBody
-	public String create(String email, String name, String password) {
+	public String createUser(String email, String name, String password) {
 		String userId = "";
 		try {
 			User user = new User(email, name, password);
@@ -37,7 +37,7 @@ public class UserController {
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
-	public String delete(long id) {
+	public String deleteUser(long id) {
 		try {
 			User user = new User(id);
 			userDao.delete(user);
@@ -52,7 +52,7 @@ public class UserController {
 	 */
 	@RequestMapping("/get-by-email/{email}")
 	@ResponseBody
-	public String getByEmail(@PathVariable("email") String email) {
+	public String getUserByEmail(@PathVariable("email") String email) {
 		String userId = "";
 		try {
 			User user = userDao.findByEmail(email);
@@ -68,7 +68,7 @@ public class UserController {
 	 */
 	@RequestMapping("/get-by-name/{name}")
 	@ResponseBody
-	public String getByName(@PathVariable("name") String name) {
+	public String getUserByName(@PathVariable("name") String name) {
 		String userId = "";
 		try {
 			User user = userDao.findByName(name);
