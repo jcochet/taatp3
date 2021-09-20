@@ -17,10 +17,10 @@ public class UserController {
    */
   @RequestMapping("/create")
   @ResponseBody
-  public String create(String email, String name) {
+  public String create(String email, String name, String password) {
     String userId = "";
     try {
-      User user = new User(email, name);
+      User user = new User(email, name,password);
       userDao.save(user);
       userId = String.valueOf(user.getId());
     }
