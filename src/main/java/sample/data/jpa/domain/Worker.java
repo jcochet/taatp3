@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import fr.istic.taa.jaxrs.domain.Appointment;
+
 
 @Entity
 @Table(name = "workers")
