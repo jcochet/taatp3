@@ -33,11 +33,13 @@ public class Appointment {
 	private int duration;
 
 	@NotNull
-	@Column
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn
 	private User user;
 
 	@NotNull
-	@Column
+	@ManyToOne(targetEntity = Worker.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn
 	private Worker worker;
 
 	@Column
@@ -86,8 +88,6 @@ public class Appointment {
 		this.duration = duration;
 	}
 
-	@ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn
 	public User getUser() {
 		return user;
 	}
@@ -96,8 +96,6 @@ public class Appointment {
 		this.user = user;
 	}
 
-	@ManyToOne(targetEntity = Worker.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn
 	public Worker getWorker() {
 		return worker;
 	}

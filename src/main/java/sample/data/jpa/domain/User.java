@@ -37,7 +37,7 @@ public class User {
 	@NotNull
 	private String password;
 
-	@Column
+	@OneToMany(targetEntity = Appointment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Appointment> appointments = new ArrayList<Appointment>();
 
 	// Public methods
@@ -92,7 +92,6 @@ public class User {
 		this.password = password;
 	}
 
-	@OneToMany(targetEntity = Appointment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Appointment> getAppointments() {
 		return appointments;
 	}
