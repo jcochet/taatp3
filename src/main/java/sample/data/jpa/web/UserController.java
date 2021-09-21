@@ -1,14 +1,12 @@
 package sample.data.jpa.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import sample.data.jpa.domain.Appointment;
 import sample.data.jpa.domain.User;
 import sample.data.jpa.service.UserDao;
 
@@ -18,9 +16,10 @@ public class UserController {
 	/**
 	 * GET /createUser --> Create a new user and save it in the database.
 	 */
-	@RequestMapping("/createUser")
+	@RequestMapping(value = "/createUser", params = { "email", "name", "password" })
 	@ResponseBody
-	public String createUser(String email, String name, String password) {
+	public String createUser(@RequestParam("email") String email, @RequestParam("name") String name,
+			@RequestParam("password") String password) {
 		String userId = "";
 		try {
 			User user = new User(email, name, password);
@@ -35,9 +34,9 @@ public class UserController {
 	/**
 	 * GET /deleteUser --> Delete the user having the passed id.
 	 */
-	@RequestMapping("/deleteUser")
+	@RequestMapping(value = "/deleteUser", params = "id")
 	@ResponseBody
-	public String deleteUser(long id) {
+	public String deleteUser(@RequestParam("id") long id) {
 		try {
 			User user = new User(id);
 			userDao.delete(user);
@@ -83,15 +82,15 @@ public class UserController {
 	 * GET /updateUser --> Update the email and the name for the user in the
 	 * database having the passed id.
 	 */
-	@RequestMapping("/updateUser")
+	@RequestMapping(value = "/updateUser/{id}", params = { "email", "name", "password" })
 	@ResponseBody
-	public String updateUser(long id, String email, String name, String password, List<Appointment> appointments) {
+	public String updateUser(@PathVariable("id") long id, @RequestParam("email") String email,
+			@RequestParam("name") String name, @RequestParam("password") String password) {
 		try {
 			User user = userDao.findById(id).get();
 			user.setEmail(email);
 			user.setName(name);
 			user.setPassword(password);
-			user.setAppointments(appointments);
 			userDao.save(user);
 		} catch (Exception ex) {
 			return "Error updating the user: " + ex.toString();
