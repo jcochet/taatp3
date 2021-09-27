@@ -48,16 +48,18 @@ public class UserController {
 	/**
 	 * GET /getUserByEmail --> Return the id for the user having the passed email.
 	 */
-	@RequestMapping("/getUserByEmail/{email}")
+	@RequestMapping(value = "/getUserByEmail", params = "email")
 	@ResponseBody
-	public String getUserByEmail(@PathVariable("email") String email) {
+	public String getUserByEmail(@RequestParam("email") String email) {
 		String userId = "";
 		try {
 			User user = userDao.findByEmail(email);
+
 			userId = String.valueOf(user.getId());
 		} catch (Exception ex) {
 			return "User not found";
 		}
+
 		return "The user id is: " + userId;
 	}
 
@@ -81,10 +83,10 @@ public class UserController {
 	 * GET /updateUser --> Update the email and the name for the user in the
 	 * database having the passed id.
 	 */
-	@RequestMapping(value = "/updateUser/{id}", params = { "email", "name", "password" })
+	@RequestMapping(value = "/updateUser", params = { "id","email", "name", "password" })
 	@ResponseBody
-	public String updateUser(@PathVariable("id") Long id, @RequestParam("email") String email,
-			@RequestParam("name") String name, @RequestParam("password") String password) {
+	public String updateUser( @RequestParam("id")Long id,@RequestParam("email") String email, @RequestParam("name") String name,
+							 @RequestParam("password") String password) {
 		try {
 			User user = userDao.findById(id).get();
 			user.setEmail(email);
@@ -96,7 +98,6 @@ public class UserController {
 		}
 		return "User succesfully updated!";
 	}
-
 	// Private fields
 
 	@Autowired

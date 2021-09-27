@@ -20,10 +20,10 @@ import java.lang.management.ManagementFactory;
 
 import javax.management.ObjectName;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.Test;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -58,7 +58,7 @@ public class SampleDataJpaApplicationTests {
 
 	private MockMvc mvc;
 
-	@Before
+	@Before("")
 	public void setUp() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 	}

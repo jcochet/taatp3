@@ -22,7 +22,7 @@ public class Appointment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private long id;
+	private Long id;
 
 	@NotNull
 	@Column
@@ -48,7 +48,7 @@ public class Appointment {
 	public Appointment() {
 	}
 
-	public Appointment(long id) {
+	public Appointment(Long id) {
 		this.id = id;
 	}
 

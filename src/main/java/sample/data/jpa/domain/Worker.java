@@ -20,7 +20,7 @@ public class Worker extends User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private long id;
+	private Long id;
 
 	@NotNull
 	@Column
@@ -31,7 +31,7 @@ public class Worker extends User {
 	public Worker() {
 	}
 
-	public Worker(long id) {
+	public Worker(Long id) {
 		this.id = id;
 	}
 
@@ -44,11 +44,11 @@ public class Worker extends User {
 		this.job = job;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
