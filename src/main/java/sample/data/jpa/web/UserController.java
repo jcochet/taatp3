@@ -30,16 +30,15 @@ public class UserController {
 		}
 		return "User succesfully created with id = " + userId;
 	}
-
+	
 	/**
 	 * GET /deleteUser --> Delete the user having the passed id.
 	 */
 	@RequestMapping(value = "/deleteUser", params = "id")
 	@ResponseBody
-	public String deleteUser(@RequestParam("id") long id) {
+	public String deleteUser(@RequestParam("id") Long id) {
 		try {
-			User user = new User(id);
-			userDao.delete(user);
+			userDao.deleteById(id);
 		} catch (Exception ex) {
 			return "Error deleting the user:" + ex.toString();
 		}
@@ -84,7 +83,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/updateUser/{id}", params = { "email", "name", "password" })
 	@ResponseBody
-	public String updateUser(@PathVariable("id") long id, @RequestParam("email") String email,
+	public String updateUser(@PathVariable("id") Long id, @RequestParam("email") String email,
 			@RequestParam("name") String name, @RequestParam("password") String password) {
 		try {
 			User user = userDao.findById(id).get();
