@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.web.bind.annotation.RestController;
 import sample.data.jpa.domain.Appointment;
 import sample.data.jpa.domain.User;
 import sample.data.jpa.domain.Worker;
 import sample.data.jpa.service.AppointmentDao;
 
-@Controller
+//@Controller
+@RestController
+@RequestMapping("/api")
 public class AppointmentController {
 
 	/**
