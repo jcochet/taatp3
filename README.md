@@ -1,4 +1,10 @@
 # TAA TP3 - ABABOU Sarah & COCHET Julien - M2 Info IL
+## Lancer le projet
+Clonez le projet ou téléchargez la dernière release puis, lancer d'abord le serveur avec cette ligne de commande :
+```java -cp hsqldb-2.5.1.jar org.hsqldb.Server```
+Ensuite, lancer l'application Spring Boot
+```java -jar spring_boot_app.jar```
+Le projet n'ayant pas de partie front-end, vous pouvez directement vos requêtes (comme dans les exemples ci-dessous) depuis votre nagivateur depuis [localhost:8080/](localhost:8080/).
 ## Requêtes
 ### Utilisateur
 #### createUser
