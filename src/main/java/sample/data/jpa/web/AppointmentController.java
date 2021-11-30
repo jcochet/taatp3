@@ -1,33 +1,37 @@
 package sample.data.jpa.web;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.bind.annotation.RestController;
+
 import sample.data.jpa.domain.Appointment;
 import sample.data.jpa.domain.User;
 import sample.data.jpa.domain.Worker;
 import sample.data.jpa.service.AppointmentDao;
+import sample.data.jpa.service.UserDao;
+import sample.data.jpa.service.WorkerDao;
 
-//@Controller
 @RestController
-@RequestMapping("/api")
 public class AppointmentController {
 
 	/**
 	 * GET /createAppointment --> Create a new appointment and save it in the
 	 * database.
 	 */
-	@RequestMapping("/createAppointment")
+	@RequestMapping(value = "/createAppointment", params = { "date", "duration", "userId", "workerId", "description" })
 	@ResponseBody
-	public String createAppointment(Date date, int duration, User user, Worker worker, String description) {
+	public String createAppointment(@RequestParam("date") Date date, @RequestParam("duration") int duration,
+			@RequestParam("userId") Long userId, @RequestParam("workerId") Long workerId,
+			@RequestParam("description") String description) {
 		String appointmentId = "";
 		try {
+			User user = userDao.getById(userId);
+			Worker worker = workerDao.getById(workerId);
 			Appointment appointment = new Appointment(date, duration, user, worker, description);
 			appointmentDao.save(appointment);
 			appointmentId = String.valueOf(appointment.getId());
@@ -40,9 +44,9 @@ public class AppointmentController {
 	/**
 	 * GET /deleteAppointment --> Delete the appointment having the passed id.
 	 */
-	@RequestMapping("/deleteAppointment")
+	@RequestMapping(value = "/deleteAppointment", params = "id")
 	@ResponseBody
-	public String deleteAppointment(long id) {
+	public String deleteAppointment(@RequestParam("id") Long id) {
 		try {
 			Appointment appointment = new Appointment(id);
 			appointmentDao.delete(appointment);
@@ -51,47 +55,49 @@ public class AppointmentController {
 		}
 		return "Appointment succesfully deleted!";
 	}
+	
+	/**
+	 * GET /getUsers --> Return all users.
+	 */
+	@RequestMapping(value = "/getAppointements")
+	@ResponseBody
+	public String getUsers() {
+		String appointmentData = "";
+		try {
+			List<Appointment> appointments = appointmentDao.findAll();
+			for (Appointment appointment : appointments) {
+				appointmentData += appointment.toString() + "\r\n";
+			}
+		} catch (Exception ex) {
+			return "Appointments not found";
+		}
+		return appointmentData;
+	}
 
 	/**
 	 * GET /getAppointmentByDate --> Return the id for the appointment having the
 	 * passed date.
 	 */
-	@RequestMapping("/getAppointmentByDate/{date}")
+	@RequestMapping(value = "/getAppointmentByDate", params = "date")
 	@ResponseBody
-	public String getAppointmentByDate(@PathVariable("date") Date date) {
-		String appointmentId = "";
+	public String getAppointmentByDate(@RequestParam("date") Date date) {
+		String appointmentData = "";
 		try {
 			Appointment appointment = appointmentDao.findByDate(date);
-			appointmentId = String.valueOf(appointment.getId());
+			appointmentData = appointment.toString();
 		} catch (Exception ex) {
 			return "Appointment not found";
 		}
-		return "The appointment id is: " + appointmentId;
-	}
-
-	/**
-	 * GET /updateAppointment --> Update the attributes for the appointment in the
-	 * database having the passed id.
-	 */
-	@RequestMapping("/updateAppointment")
-	@ResponseBody
-	public String updateAppointment(long id, Date date, int duration, User user, Worker worker, String description) {
-		try {
-			Appointment appointment = appointmentDao.findById(id).get();
-			appointment.setDate(date);
-			appointment.setDuration(duration);
-			appointment.setUser(user);
-			appointment.setWorker(worker);
-			appointment.setDescription(description);
-			appointmentDao.save(appointment);
-		} catch (Exception ex) {
-			return "Error updating the appointment: " + ex.toString();
-		}
-		return "Appointment succesfully updated!";
+		return appointmentData;
 	}
 
 	// Private fields
 
 	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private WorkerDao workerDao;
+	@Autowired
 	private AppointmentDao appointmentDao;
+
 }

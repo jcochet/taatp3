@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,21 +26,22 @@ public class User {
 	@Column
 	private Long id;
 
-	@Column
 	@NotNull
+	@Column
 	private String email;
 
-	@Column
 	@NotNull
+	@Column
 	private String name;
 
-	@Column
 	@NotNull
+	@Column
 	private String password;
 
 	@OneToMany(targetEntity = Appointment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn
 	private List<Appointment> appointments = new ArrayList<Appointment>();
-
+	
 	// Public methods
 
 	public User() {

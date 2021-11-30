@@ -1,16 +1,19 @@
 package sample.data.jpa.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import sample.data.jpa.domain.User;
 import sample.data.jpa.service.UserDao;
 
 @RestController
-@RequestMapping("/api")
 public class UserController {
-
+	
 	/**
 	 * GET /createUser --> Create a new user and save it in the database.
 	 */
@@ -28,7 +31,7 @@ public class UserController {
 		}
 		return "User succesfully created with id = " + userId;
 	}
-	
+
 	/**
 	 * GET /deleteUser --> Delete the user having the passed id.
 	 */
@@ -44,58 +47,57 @@ public class UserController {
 	}
 
 	/**
+	 * GET /getUsers --> Return all users.
+	 */
+	@RequestMapping(value = "/getUsers")
+	@ResponseBody
+	public String getUsers() {
+		String usersData = "";
+		try {
+			List<User> users = userDao.findAll();
+			for (User user : users) {
+				usersData += user.toString() + "\r\n";
+				System.out.println(user.toString());
+			}
+		} catch (Exception ex) {
+			return "Users not found";
+		}
+		return usersData;
+	}
+	
+	/**
 	 * GET /getUserByEmail --> Return the id for the user having the passed email.
 	 */
 	@RequestMapping(value = "/getUserByEmail", params = "email")
 	@ResponseBody
 	public String getUserByEmail(@RequestParam("email") String email) {
-		String userId = "";
+		String usersData = "";
 		try {
 			User user = userDao.findByEmail(email);
-
-			userId = String.valueOf(user.getId());
+			usersData = user.toString();
 		} catch (Exception ex) {
 			return "User not found";
 		}
 
-		return "The user id is: " + userId;
+		return usersData;
 	}
 
 	/**
 	 * GET /getUserByName --> Return the id for the user having the passed name.
 	 */
-	@RequestMapping("/getUserByName/{name}")
+	@RequestMapping(value = "/getUserByName", params = "name")
 	@ResponseBody
-	public String getUserByName(@PathVariable("name") String name) {
-		String userId = "";
+	public String getUserByName(@RequestParam("name") String name) {
+		String usersData = "";
 		try {
 			User user = userDao.findByName(name);
-			userId = String.valueOf(user.getId());
+			usersData = user.toString();
 		} catch (Exception ex) {
 			return "User not found";
 		}
-		return "The user id is: " + userId;
+		return usersData;
 	}
 
-	/**
-	 * GET /updateUser --> Update the email and the name for the user in the
-	 * database having the passed id.
-	 */
-	@RequestMapping(value = "/updateUser", params = { "id","email", "name", "password" })
-	@ResponseBody
-	public String updateUser( @RequestParam("id")Long id,@RequestParam("email") String email, @RequestParam("name") String name,
-							 @RequestParam("password") String password) {
-		try {
-			User user = userDao.findById(id).get();
-			user.setEmail(email);
-			user.setName(name);
-			user.setPassword(password);
-			userDao.save(user);
-		} catch (Exception ex) {
-			return "Error updating the user: " + ex.toString();
-		}
-		return "User succesfully updated!";
-	}
 	// Private fields
 
 	@Autowired

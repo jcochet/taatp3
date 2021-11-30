@@ -1,14 +1,17 @@
 package sample.data.jpa.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import sample.data.jpa.domain.Worker;
 import sample.data.jpa.service.WorkerDao;
 
 @RestController
-@RequestMapping("/api")
 public class WorkerController {
 
 	/**
@@ -44,52 +47,70 @@ public class WorkerController {
 	}
 
 	/**
+	 * GET /getUsers --> Return all users.
+	 */
+	@RequestMapping("/getWorkers")
+	@ResponseBody
+	public String getWorkers() {
+		String workersData = "";
+		try {
+			List<Worker> workers = workerDao.findAll();
+			for (Worker worker : workers) {
+				workersData += worker.toString() + "\r\n";
+			}
+		} catch (Exception ex) {
+			return "Workers not found";
+		}
+		return workersData;
+	}
+
+	/**
 	 * GET /getWorkerByEmail --> Return the id for the worker having the passed
 	 * email.
 	 */
-	@RequestMapping("/getWorkerByEmail/{email}")
+	@RequestMapping(value = "/getWorkerByEmail", params = "email")
 	@ResponseBody
-	public String getWorkerByEmail(@PathVariable("email") String email) {
-		String workerId = "";
+	public String getWorkerByEmail(@RequestParam("email") String email) {
+		String workersData = "";
 		try {
 			Worker worker = workerDao.findByEmail(email);
-			workerId = String.valueOf(worker.getId());
+			workersData = worker.toString();
 		} catch (Exception ex) {
 			return "Worker not found";
 		}
-		return "The worker id is: " + workerId;
+		return workersData;
 	}
 
 	/**
 	 * GET /getWorkerByName --> Return the id for the worker having the passed name.
 	 */
-	@RequestMapping("/getWorkerByName/{name}")
+	@RequestMapping(value = "/getWorkerByName", params = "name")
 	@ResponseBody
-	public String getWorkerByName(@PathVariable("name") String name) {
-		String workerId = "";
+	public String getWorkerByName(@RequestParam("name") String name) {
+		String workersData = "";
 		try {
 			Worker worker = workerDao.findByName(name);
-			workerId = String.valueOf(worker.getId());
+			workersData = worker.toString();
 		} catch (Exception ex) {
 			return "Worker not found";
 		}
-		return "The worker id is: " + workerId;
+		return workersData;
 	}
 
 	/**
 	 * GET /getWorkerByJob --> Return the id for the worker having the passed job.
 	 */
-	@RequestMapping("/getWorkerByJob/{job}")
+	@RequestMapping(value = "/getWorkerByJob", params = "job")
 	@ResponseBody
-	public String getWorkerByJob(@PathVariable("job") String job) {
-		String workerId = "";
+	public String getWorkerByJob(@RequestParam("job") String job) {
+		String workersData = "";
 		try {
 			Worker worker = workerDao.findByJob(job);
-			workerId = String.valueOf(worker.getId());
+			workersData = worker.toString();
 		} catch (Exception ex) {
 			return "Worker not found";
 		}
-		return "The worker id is: " + workerId;
+		return workersData;
 	}
 
 	// Private fields

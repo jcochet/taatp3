@@ -13,5 +13,5 @@ import sample.data.jpa.domain.Appointment;
 public interface AppointmentDao extends JpaRepository<Appointment, Long> {
 
 	public Appointment findByDate(Date date);
-
+	
 }
