@@ -1,4 +1,8 @@
 # TAA TP3 - ABABOU Sarah & COCHET Julien - M2 Info IL
+## Sommaire
+- [Lancer le projet](#lancer-le-projet)
+- [Requêtes](#requêtes)
+- [Diagrammes de classes](#diagrammes-de-classes)
 ## Lancer le projet
 Clonez le projet ou téléchargez la dernière release puis, lancer d'abord le serveur avec cette ligne de commande :
 ```java -cp hsqldb-2.5.1.jar org.hsqldb.Server```
@@ -102,3 +106,11 @@ Affiche le rendez-vous ayant une date donnée.
 - date : Date du rendez-vous (format YYYY-MM-DD)
 ##### Exemple :
 ```localhost:8080/getAppointmentByDate?date=2021-12-01```
+## Diagrammes de classes
+Le projet comporte trois packages : "domain", "service" et "web" organisé ainsi :
+### domain
+![domain](https://github.com/jcochet/taatp3/blob/main/img/diagram/domain.png)
+### service
+![service](https://github.com/jcochet/taatp3/blob/main/img/diagram/service.png)
+### web
+![web](https://github.com/jcochet/taatp3/blob/main/img/diagram/web.png)
